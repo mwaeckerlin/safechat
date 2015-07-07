@@ -17,6 +17,5 @@ RUN ln -s /usr/share/safechat/html /usr/share/nginx/html
 
 # Just provide /usr/share/safechat/html
 VOLUME /usr/share/safechat/html
-VOLUME /etc/nginx
 VOLUME /usr/share/nginx/html
 CMD sleep infinity
