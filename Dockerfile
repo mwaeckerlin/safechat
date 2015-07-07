@@ -12,5 +12,11 @@ RUN wget -O- https://dev.marc.waeckerlin.org/repository/PublicKey \
 RUN apt-get update -y
 RUN apt-get install safechat
 
+RUN mkdir -p /usr/share/nginx
+RUN ln -s /usr/share/safechat/html /usr/share/nginx/html
+
 # Just provide /usr/share/safechat/html
+VOLUME /usr/share/safechat/html
+VOLUME /etc/nginx
+VOLUME /usr/share/nginx/html
 CMD sleep infinity
