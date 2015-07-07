@@ -3,7 +3,7 @@
 # docker run -d -name safechat.ch-mysql 
 
 FROM ubuntu
-AUTHOR mwaeckerlin
+MAINTAINER mwaeckerlin
 
 RUN apt-get install -y wget software-properties-common apt-transport-https
 RUN apt-add-repository https://dev.marc.waeckerlin.org/repository
