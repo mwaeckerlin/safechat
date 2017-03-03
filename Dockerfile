@@ -1,21 +1,13 @@
-# Run it:
-# docker run -d -name safechat.ch-volumes mysql sleep infinity
-# docker run -d -name safechat.ch-mysql 
-
-FROM ubuntu
+FROM mwaeckerlin/ubuntu-base
 MAINTAINER mwaeckerlin
 
-RUN apt-get install -y wget software-properties-common apt-transport-https
-RUN apt-add-repository https://dev.marc.waeckerlin.org/repository
-RUN wget -O- https://dev.marc.waeckerlin.org/repository/PublicKey \
-    | apt-key add -
-RUN apt-get update -y
-RUN apt-get install safechat
+ENV PORT 8000
+EXPOSE ${PORT}
 
-RUN mkdir -p /usr/share/nginx
-RUN ln -s /usr/share/safechat/html /usr/share/nginx/html
-
-# Just provide /usr/share/safechat/html
-VOLUME /usr/share/safechat/html
-VOLUME /usr/share/nginx/html
-CMD sleep infinity
+RUN apt-get update && apt-get install -y safechat
+RUN useradd -r -s /bin/false safechat
+RUN chown safechat.safechat /etc/safechat.json
+ADD start.sh /start.sh
+WORKDIR /usr/share/safechat/nodejs
+USER safechat
+CMD  /start.sh
